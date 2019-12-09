@@ -1,0 +1,28 @@
+version: "3"
+# サービス（アプリケーションの構成要素）
+services:
+  app:
+    # 指定したディレクトリにある Dockerfile でコンテナを起動する
+    build:
+      context: ./docker/php
+      args:
+        # `${TZ}`などは`.env`の環境変数が利用される
+        - TZ=${TZ}
+
+    # マウントする設定ファイルのパス
+    volumes:
+      - ./src:/work
+      - ./logs:/var/log/php
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+
+    # コンテナ内のワーキングディレクトリ。`docker run -w`に相当
+    working_dir: /work
+
+    # コンテナの環境変数
+    environment:
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_DATABASE=${DB_NAME}
+      - DB_USERNAME=${DB_USER}
+      - DB_PASSWORD=${DB_PASS}
+      - TZ=${TZ}
