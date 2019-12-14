@@ -18,7 +18,8 @@ RUN set -eux && \
   apk add --update-cache --no-cache --virtual=.build-dependencies tzdata && \
   cp /usr/share/zoneinfo/${TZ} /etc/localtime && \
   apk del .build-dependencies && \
-  docker-php-ext-install bcmath pdo_mysql && \
+  apk --no-cache add bash postgresql-dev && \
+  docker-php-ext-install pdo pdo_pgsql && \
   curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
   composer config -g repos.packagist composer https://packagist.jp && \
   composer global require hirak/prestissimo
