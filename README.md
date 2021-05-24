@@ -1,5 +1,11 @@
 # docker-laravel
 
+Docker で Laravel を起動するようにしたサンプル。
+
+コンテナ起動後、以下にアクセスすればアプリケーションを確認できる。
+
+http://127.0.0.1:10080/
+
 ## このリポジトリで利用する Docker 関連のコマンド
 
 - `docker-compose up`
